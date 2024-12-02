@@ -7,7 +7,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class Fetch {
-    private static final String API_KEY = "bccf128afb163501f6cbb52d992210c5";
+    private static final String API_KEY = "INSERT API KEY HERE";
     private static final String BASE_URL = "https://api.weatherstack.com/current";
 
     /**
