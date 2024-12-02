@@ -3,7 +3,8 @@ This is my Semester Project for CSIS 312-001. This is meant to be a weather app,
 
 THIS PROJECT IS ONLY OPEN TO CONTRIBUTIONS FROM OTHER STUDENTS IN THE SAME CLASS.
 
-You must have JavaFX and SceneBuilder installed on your machine to run this code.
+You must have JavaFX and SceneBuilder installed on your machine to run this code. You will also have to obtain your own API Key from Weatherstack. 
+FOR SECURITY PURPOSES DO NOT PUBLISH YOUR API KEY.
 
 UPDATES
 
