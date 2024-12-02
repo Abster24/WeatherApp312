@@ -1,0 +1,15 @@
+Created 12/2/2024 by Abigail Snyder
+This is my Semester Project for CSIS 312-001. This is meant to be a weather app, using Weatherstack API. 
+
+THIS PROJECT IS ONLY OPEN TO CONTRIBUTIONS FROM OTHER STUDENTS IN THE SAME CLASS.
+
+You must have JavaFX and SceneBuilder installed on your machine to run this code.
+
+UPDATES
+
+12/2/24 (AbSny) - Currently the project is in beginning stages. After experimenting with okhttp3, the app has been connected to Weatherstack,
+a basic ui has been created in JavaFX, and the user can enter a city name and receive the current temperature and weather of the location. 
+  Planned Updates: 
+      1. Allow User to store preferred locations that automatically load when app is started.
+      2. Build out UI to look more professional.
+      3. Allow user to specify zip code or state in order to ensure they receive the right information
