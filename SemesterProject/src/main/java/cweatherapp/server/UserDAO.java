@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserDAO {
 
@@ -25,13 +26,13 @@ public class UserDAO {
     }
 
     public static int getUserId(String username) {
-        String query = "SELECT id FROM users WHERE username = ?";
+        String query = "SELECT userID FROM users WHERE username = ?";
         try (Connection connection = sqlConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return resultSet.getInt("id");
+                    return resultSet.getInt("userID");
                 }
             }
         } catch (Exception e) {
@@ -40,15 +41,15 @@ public class UserDAO {
         return -1; // User not found
     }
 
-    public static List<String> getUserCities(int userId) {
-        String query = "SELECT city_name FROM user_cities WHERE user_id = ?";
+    public static List<String> getUserCities(String name) {
+        String query = "SELECT city FROM saved_cities WHERE userID = ?";
         List<String> cities = new ArrayList<>();
         try (Connection connection = sqlConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, userId);
+            statement.setInt(1, getUserId(name));
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    cities.add(resultSet.getString("city_name"));
+                    cities.add(resultSet.getString("city"));
                 }
             }
         } catch (Exception e) {
@@ -58,7 +59,7 @@ public class UserDAO {
     }
 
     public static boolean addUserCity(String cityName) {
-        String query = "INSERT INTO saved_cities (idUser, city1) VALUES (3, ?)";
+        String query = "INSERT INTO saved_cities (idUser, city1) VALUES (1, ?)";
 
         try (Connection connection = sqlConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -84,6 +85,9 @@ public class UserDAO {
                 if (resultSet.next()) {
                     // Get the password from the database
                     String Password = resultSet.getString("password");
+                    if (Objects.equals(password, Password)) {
+                        return true;
+                    }
 
                 }
             }
@@ -94,5 +98,5 @@ public class UserDAO {
         return false; // Return false if authentication fails
     }
 }
-}
+
 
