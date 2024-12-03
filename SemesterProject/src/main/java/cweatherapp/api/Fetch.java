@@ -10,7 +10,7 @@ import okhttp3.Response;
 import java.util.List;
 
 public class Fetch {
-    private static final String API_KEY = "YOUR API KEY";
+    private static final String API_KEY = "";
     private static final String BASE_URL = "https://api.weatherstack.com/current";
 
 

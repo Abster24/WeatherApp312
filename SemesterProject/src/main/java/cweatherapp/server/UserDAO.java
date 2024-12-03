@@ -9,14 +9,13 @@ import java.util.List;
 
 public class UserDAO {
 
-    public static boolean addUser(String username, String email, String password) {
-        String query = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+    public static boolean addUser(String username, String password) {
+        String query = "INSERT INTO users (username, password) VALUES (?, ?)";
 
         try (Connection connection = sqlConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
-            statement.setString(2, email);
-            statement.setString(3, password); // Consider hashing the password
+            statement.setString(2, password); // Consider hashing the password
             statement.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -58,13 +57,13 @@ public class UserDAO {
         return cities;
     }
 
-    public static boolean addUserCity(int userId, String cityName) {
-        String query = "INSERT INTO user_cities (user_id, city_name) VALUES (?, ?)";
+    public static boolean addUserCity(String cityName) {
+        String query = "INSERT INTO saved_cities (idUser, city1) VALUES (3, ?)";
 
         try (Connection connection = sqlConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, userId);
-            statement.setString(2, cityName);
+            //statement.setInt(1, userId);
+            statement.setString(1, cityName);
             statement.executeUpdate();
             return true;
         } catch (Exception e) {
