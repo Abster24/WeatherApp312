@@ -14,3 +14,5 @@ a basic ui has been created in JavaFX, and the user can enter a city name and re
       1. Allow User to store preferred locations that automatically load when app is started (Begun work with MySql).
       2. Build out UI to look more professional.
       3. Allow user to specify zip code or state in order to ensure they receive the right information
+
+12/3/24 (AbSny) - Working with MySql to create users and store a presaved location
