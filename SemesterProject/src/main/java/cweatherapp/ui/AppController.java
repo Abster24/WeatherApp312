@@ -24,10 +24,6 @@ public class AppController {
         try {
             // Test the function
             String[] weatherDetails = cweatherapp.api.Fetch.getWeatherDetails(city);
-            /*System.out.println("City: " + weatherDetails[0]);
-            System.out.println("Country: " + weatherDetails[1]);
-            System.out.println("Temperature: " + weatherDetails[2]);
-            System.out.println("Currently " + weatherDetails[3]);*/
             weatherInfo.setText("City: " + weatherDetails[0] +
                     "\nCountry: " + weatherDetails[1] +
                     "\nTemperature: " + weatherDetails[2] +

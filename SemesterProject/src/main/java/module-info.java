@@ -8,6 +8,7 @@ module assignment2.semesterproject {
     requires eu.hansolo.tilesfx;
     requires okhttp3;
     requires com.google.gson;
+    requires java.sql;
 
     opens cweatherapp to javafx.fxml;
     exports cweatherapp;

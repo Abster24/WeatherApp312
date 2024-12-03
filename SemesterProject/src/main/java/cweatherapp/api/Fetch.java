@@ -2,13 +2,40 @@ package cweatherapp.api;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import cweatherapp.server.UserDAO;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import java.util.List;
+
 public class Fetch {
-    private static final String API_KEY = "INSERT API KEY HERE";
+    private static final String API_KEY = "YOUR API KEY";
     private static final String BASE_URL = "https://api.weatherstack.com/current";
+
+
+    /**
+     *
+     * @param userId
+     */
+    public static void fetchAndSaveWeatherForUser(int userId) {
+        List<String> cities = UserDAO.getUserCities(userId);
+
+        for (String city : cities) {
+            try {
+                String[] weatherDetails = getWeatherDetails(city);
+
+                // Example: Print fetched weather data
+                System.out.println("City: " + weatherDetails[0]);
+                System.out.println("Country: " + weatherDetails[1]);
+                System.out.println("Temperature: " + weatherDetails[2]);
+                System.out.println("Condition: " + weatherDetails[3]);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * Fetches weather data for a given city and returns an array with city, country, and temperature.
