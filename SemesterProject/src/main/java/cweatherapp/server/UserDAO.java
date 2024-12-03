@@ -71,5 +71,28 @@ public class UserDAO {
         }
         return false;
     }
+
+    public static boolean login(String username, String password) {
+        String query = "SELECT password FROM users WHERE username = ?";
+
+        try (Connection connection = sqlConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, username);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    // Get the password from the database
+                    String Password = resultSet.getString("password");
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false; // Return false if authentication fails
+    }
+}
 }
 

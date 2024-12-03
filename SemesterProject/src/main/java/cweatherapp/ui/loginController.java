@@ -25,8 +25,22 @@ public class loginController {
         String name = nameField.getText();
         String password = passwordField.getText();
 
-        UserDAO.addUser(name, password);
+        try {
+            UserDAO.addUser(name, password);
+            alert.setVisible(true);
+            alert.setText("User added successfully");
+        } catch (Exception e) {
+            alert.setVisible(true);
+            alert.setText("User not added");
+            e.printStackTrace();
+        }
+    }
 
+    public void loginUser() {
+        String name = nameField.getText();
+        String password = passwordField.getText();
+
+        UserDAO.login(name,password);
     }
 
 
