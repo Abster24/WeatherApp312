@@ -14,8 +14,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static cweatherapp.api.Fetch.getWeatherDetails;
 import static cweatherapp.server.UserDAO.getUserCities;
 
 
@@ -43,7 +46,7 @@ public class AppController {
     public void fetchWeather() {
         String city = cityInput.getText();
         try {
-            String[] weatherDetails = cweatherapp.api.Fetch.getWeatherDetails(city);
+            String[] weatherDetails = getWeatherDetails(city);
             weatherInfo.setText("City: " + weatherDetails[0] +
                     "\nCountry: " + weatherDetails[1] +
                     "\nTemperature: " + weatherDetails[2] +
@@ -86,6 +89,7 @@ public class AppController {
 
     public void showLogin() {
         loginPane.setVisible(true);
+        savedCities.setVisible(false);
     }
 
     public void loginUser() {
@@ -94,12 +98,15 @@ public class AppController {
 
         boolean successful = UserDAO.login(name,password);
         if (successful) {
-            alert.setText("Login successful");
             loginPane.setVisible(false);
             savedCities.setVisible(true);
             try {
-                List<String> cities = List.of(Fetch.getWeatherDetails(getUserCities(name).toString()));
-                savedCities.setText(cities.toString());
+                ArrayList<String> cities = getUserCities(name);
+                String result = "";
+                for (String city : cities) {
+                    result = result + (Arrays.toString(getWeatherDetails(city))) + "\n\n";
+                }
+                savedCities.setText(result);
 
             } catch (Exception e) {
                 e.printStackTrace();

@@ -41,9 +41,9 @@ public class UserDAO {
         return -1; // User not found
     }
 
-    public static List<String> getUserCities(String name) {
+    public static ArrayList<String> getUserCities(String name) {
         String query = "SELECT city FROM saved_cities WHERE userID = ?";
-        List<String> cities = new ArrayList<>();
+        ArrayList<String> cities = new ArrayList<>();
         try (Connection connection = sqlConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, getUserId(name));
@@ -59,7 +59,7 @@ public class UserDAO {
     }
 
     public static boolean addUserCity(String cityName) {
-        String query = "INSERT INTO saved_cities (idUser, city1) VALUES (1, ?)";
+        String query = "INSERT INTO saved_cities (userID, city) VALUES (1, ?)";
 
         try (Connection connection = sqlConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
