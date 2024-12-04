@@ -18,9 +18,10 @@ public class App {
             // Test the function
             String[] weatherDetails = cweatherapp.api.Fetch.getWeatherDetails(city);
             System.out.println("City: " + weatherDetails[0]);
-            System.out.println("Country: " + weatherDetails[1]);
-            System.out.println("Temperature: " + weatherDetails[2]);
-            System.out.println("Currently " + weatherDetails[3]);
+            System.out.println("State: " + weatherDetails[1]);
+            System.out.println("Country: " + weatherDetails[2]);
+            System.out.println("Temperature: " + weatherDetails[3]);
+            System.out.println("Currently " + weatherDetails[4]);
         } catch (Exception e) {
             e.printStackTrace();
         }

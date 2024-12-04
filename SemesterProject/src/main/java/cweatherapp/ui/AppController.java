@@ -53,9 +53,10 @@ public class AppController {
         try {
             String[] weatherDetails = getWeatherDetails(city);
             weatherInfo.setText("City: " + weatherDetails[0] +
-                    "\nCountry: " + weatherDetails[1] +
-                    "\nTemperature: " + weatherDetails[2] +
-                    "\nCurrently " + weatherDetails[3]);
+                    "\nState: " + weatherDetails[1] +
+                    "\nCountry: " + weatherDetails[2] +
+                    "\nTemperature: " + weatherDetails[3] +
+                    "\nCurrently " + weatherDetails[4]);
             saveBtn.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();

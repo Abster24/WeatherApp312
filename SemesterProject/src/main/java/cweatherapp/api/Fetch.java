@@ -8,9 +8,9 @@ import okhttp3.Response;
 
 
 public class Fetch {
+
     private static final String API_KEY = "API KEY";
     private static final String BASE_URL = "https://api.weatherstack.com/current";
-
 
     /**
      * Fetches weather data for a given city and returns an array with city, country, and temperature.
@@ -38,6 +38,7 @@ public class Fetch {
 
             // default values
             String city = "Unknown";
+            String state = "Unknown";
             String country = "Unknown";
             String temperature = "N/A";
             String weather = "N/A";
@@ -48,7 +49,17 @@ public class Fetch {
                 city = json.getAsJsonObject("location").get("name").getAsString();
             }
 
+
+            // Extract state name
+            if (json.has("location") && json.getAsJsonObject("location").has("region") &&
+                    !json.getAsJsonObject("location").get("region").isJsonNull()) {
+                state = json.getAsJsonObject("location").get("region").getAsString();
+            }
+
+            // Extract country name
+
             // country name
+
             if (json.has("location") && json.getAsJsonObject("location").has("country") &&
                     !json.getAsJsonObject("location").get("country").isJsonNull()) {
                 country = json.getAsJsonObject("location").get("country").getAsString();
@@ -67,7 +78,7 @@ public class Fetch {
             }
 
             // Return as an array
-            return new String[]{city, country, temperature, weather};
+            return new String[]{city, state, country, temperature, weather};
         }
     }
 }
