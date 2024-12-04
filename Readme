@@ -16,3 +16,5 @@ a basic ui has been created in JavaFX, and the user can enter a city name and re
       3. Allow user to specify zip code or state in order to ensure they receive the right information
 
 12/3/24 (AbSny) - Working with MySql to create users and store a presaved location.
+
+12/4/24 (AbSny) - Finished SQL integration. Users can now create accounts and save cities.
