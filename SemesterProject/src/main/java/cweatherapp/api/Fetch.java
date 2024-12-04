@@ -10,32 +10,10 @@ import okhttp3.Response;
 import java.util.List;
 
 public class Fetch {
-    private static final String API_KEY = "";
+    private static final String API_KEY = "c4a57d02fe913471c34207d9680a6c9a";
     private static final String BASE_URL = "https://api.weatherstack.com/current";
 
 
-    /**
-     *
-     * @param userId
-     */
-    public static void fetchAndSaveWeatherForUser(int userId) {
-        List<String> cities = UserDAO.getUserCities(userId);
-
-        for (String city : cities) {
-            try {
-                String[] weatherDetails = getWeatherDetails(city);
-
-                // Example: Print fetched weather data
-                System.out.println("City: " + weatherDetails[0]);
-                System.out.println("Country: " + weatherDetails[1]);
-                System.out.println("Temperature: " + weatherDetails[2]);
-                System.out.println("Condition: " + weatherDetails[3]);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     /**
      * Fetches weather data for a given city and returns an array with city, country, and temperature.
@@ -63,6 +41,7 @@ public class Fetch {
 
             // Initialize variables with default values
             String city = "Unknown";
+            String state = "Unknown";
             String country = "Unknown";
             String temperature = "N/A";
             String weather = "N/A";
@@ -71,6 +50,12 @@ public class Fetch {
             if (json.has("location") && json.getAsJsonObject("location").has("name") &&
                     !json.getAsJsonObject("location").get("name").isJsonNull()) {
                 city = json.getAsJsonObject("location").get("name").getAsString();
+            }
+
+            // Extract state name
+            if (json.has("location") && json.getAsJsonObject("location").has("region") &&
+                    !json.getAsJsonObject("location").get("region").isJsonNull()) {
+                state = json.getAsJsonObject("location").get("region").getAsString();
             }
 
             // Extract country name
@@ -92,7 +77,7 @@ public class Fetch {
             }
 
             // Return as an array
-            return new String[]{city, country, temperature, weather};
+            return new String[]{city, state, country, temperature, weather};
         }
     }
 }
