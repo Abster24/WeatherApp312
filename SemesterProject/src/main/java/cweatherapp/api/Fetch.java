@@ -2,18 +2,15 @@ package cweatherapp.api;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import cweatherapp.server.UserDAO;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import java.util.List;
 
 public class Fetch {
-    private static final String API_KEY = "c4a57d02fe913471c34207d9680a6c9a";
+
+    private static final String API_KEY = "API KEY";
     private static final String BASE_URL = "https://api.weatherstack.com/current";
-
-
 
     /**
      * Fetches weather data for a given city and returns an array with city, country, and temperature.
@@ -35,11 +32,11 @@ public class Fetch {
                 throw new RuntimeException("Unexpected code " + response);
             }
 
-            // Parse the response JSON
+            // Parse the response
             String responseBody = response.body().string();
             JsonObject json = JsonParser.parseString(responseBody).getAsJsonObject();
 
-            // Initialize variables with default values
+            // default values
             String city = "Unknown";
             String state = "Unknown";
             String country = "Unknown";
@@ -52,6 +49,7 @@ public class Fetch {
                 city = json.getAsJsonObject("location").get("name").getAsString();
             }
 
+
             // Extract state name
             if (json.has("location") && json.getAsJsonObject("location").has("region") &&
                     !json.getAsJsonObject("location").get("region").isJsonNull()) {
@@ -59,18 +57,21 @@ public class Fetch {
             }
 
             // Extract country name
+
+            // country name
+
             if (json.has("location") && json.getAsJsonObject("location").has("country") &&
                     !json.getAsJsonObject("location").get("country").isJsonNull()) {
                 country = json.getAsJsonObject("location").get("country").getAsString();
             }
 
-            // Extract temperature
+            // temperature
             if (json.has("current") && json.getAsJsonObject("current").has("temperature") &&
                     !json.getAsJsonObject("current").get("temperature").isJsonNull()) {
                 temperature = json.getAsJsonObject("current").get("temperature").getAsString() + " °F";
             }
 
-            //Extract Weather Description
+            //Weather Description
             if (json.has("current") && json.getAsJsonObject("current").has("weather_descriptions") &&
                     !json.getAsJsonObject("current").get("weather_descriptions").isJsonNull()) {
                 weather = json.getAsJsonObject("current").get("weather_descriptions").getAsString().toLowerCase();

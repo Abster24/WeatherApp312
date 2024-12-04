@@ -14,9 +14,13 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static cweatherapp.api.Fetch.getWeatherDetails;
 import static cweatherapp.server.UserDAO.getUserCities;
+import static cweatherapp.server.UserDAO.getUserId;
 
 
 public class AppController {
@@ -38,12 +42,16 @@ public class AppController {
     public Button createBtn;
     @FXML
     public Label alert;
+    @FXML
+    public Label namesaver;
+    @FXML
+    public Label idsaver;
 
 
     public void fetchWeather() {
         String city = cityInput.getText();
         try {
-            String[] weatherDetails = cweatherapp.api.Fetch.getWeatherDetails(city);
+            String[] weatherDetails = getWeatherDetails(city);
             weatherInfo.setText("City: " + weatherDetails[0] +
                     "\nState: " + weatherDetails[1] +
                     "\nCountry: " + weatherDetails[2] +
@@ -58,17 +66,17 @@ public class AppController {
 
     public void saveCity() {
         String city = cityInput.getText();
+        String name = namesaver.getText();
+        int userID = getUserId(name);
         try {
             sqlConnection.getConnection();
-            UserDAO.addUserCity(city);
+            UserDAO.addUserCity(city, userID);
+            showCities(name);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
 
     public void createUser() {
         String name = nameField.getText();
@@ -87,31 +95,39 @@ public class AppController {
 
     public void showLogin() {
         loginPane.setVisible(true);
+        savedCities.setVisible(false);
     }
 
     public void loginUser() {
         String name = nameField.getText();
         String password = passwordField.getText();
-
-        boolean successful = UserDAO.login(name,password);
-        if (successful) {
-            alert.setText("Login successful");
-            loginPane.setVisible(false);
-            savedCities.setVisible(true);
-            try {
-                List<String> cities = List.of(Fetch.getWeatherDetails(getUserCities(name).toString()));
-                savedCities.setText(cities.toString());
-
-            } catch (Exception e) {
+        try {
+            boolean successful = UserDAO.login(name,password);
+            if (successful) {
+                loginPane.setVisible(false);
+                savedCities.setVisible(true);
+                namesaver.setText(name);
+                idsaver.setText(String.valueOf(getUserId(name)));
+                showCities(name);
+            } else {
+                    alert.setText("login failed");
+                    alert.setVisible(true);
+                }
+        } catch (Exception e) {
                 e.printStackTrace();
             }
 
-        } else {
-            alert.setText("login failed");
-            alert.setVisible(true);
+        }
+    public void showCities (String name) {
+        try {
+            ArrayList<String> cities = getUserCities(name);
+            String result = "";
+            for (String city : cities) {
+                result = result + (Arrays.toString(getWeatherDetails(city))) + "\n\n";
+            }
+            savedCities.setText(result);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
-}
-
-
+    }

@@ -38,12 +38,12 @@ public class UserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return -1; // User not found
+        return -1;
     }
 
-    public static List<String> getUserCities(String name) {
+    public static ArrayList<String> getUserCities(String name) {
         String query = "SELECT city FROM saved_cities WHERE userID = ?";
-        List<String> cities = new ArrayList<>();
+        ArrayList<String> cities = new ArrayList<>();
         try (Connection connection = sqlConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, getUserId(name));
@@ -58,13 +58,13 @@ public class UserDAO {
         return cities;
     }
 
-    public static boolean addUserCity(String cityName) {
-        String query = "INSERT INTO saved_cities (idUser, city1) VALUES (1, ?)";
+    public static boolean addUserCity(String cityName, int userID) {
+        String query = "INSERT INTO saved_cities (userID, city) VALUES (?, ?)";
 
         try (Connection connection = sqlConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            //statement.setInt(1, userId);
-            statement.setString(1, cityName);
+            statement.setInt(1, userID);
+            statement.setString(2, cityName);
             statement.executeUpdate();
             return true;
         } catch (Exception e) {
