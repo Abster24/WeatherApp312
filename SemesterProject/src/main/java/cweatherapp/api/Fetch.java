@@ -2,40 +2,15 @@ package cweatherapp.api;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import cweatherapp.server.UserDAO;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import java.util.List;
 
 public class Fetch {
-    private static final String API_KEY = "";
+    private static final String API_KEY = "API KEY";
     private static final String BASE_URL = "https://api.weatherstack.com/current";
 
-
-    /**
-     *
-     * @param userId
-     */
-    public static void fetchAndSaveWeatherForUser(int userId) {
-        List<String> cities = UserDAO.getUserCities(userId);
-
-        for (String city : cities) {
-            try {
-                String[] weatherDetails = getWeatherDetails(city);
-
-                // Example: Print fetched weather data
-                System.out.println("City: " + weatherDetails[0]);
-                System.out.println("Country: " + weatherDetails[1]);
-                System.out.println("Temperature: " + weatherDetails[2]);
-                System.out.println("Condition: " + weatherDetails[3]);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     /**
      * Fetches weather data for a given city and returns an array with city, country, and temperature.
@@ -57,11 +32,11 @@ public class Fetch {
                 throw new RuntimeException("Unexpected code " + response);
             }
 
-            // Parse the response JSON
+            // Parse the response
             String responseBody = response.body().string();
             JsonObject json = JsonParser.parseString(responseBody).getAsJsonObject();
 
-            // Initialize variables with default values
+            // default values
             String city = "Unknown";
             String country = "Unknown";
             String temperature = "N/A";
@@ -73,19 +48,19 @@ public class Fetch {
                 city = json.getAsJsonObject("location").get("name").getAsString();
             }
 
-            // Extract country name
+            // country name
             if (json.has("location") && json.getAsJsonObject("location").has("country") &&
                     !json.getAsJsonObject("location").get("country").isJsonNull()) {
                 country = json.getAsJsonObject("location").get("country").getAsString();
             }
 
-            // Extract temperature
+            // temperature
             if (json.has("current") && json.getAsJsonObject("current").has("temperature") &&
                     !json.getAsJsonObject("current").get("temperature").isJsonNull()) {
                 temperature = json.getAsJsonObject("current").get("temperature").getAsString() + " °F";
             }
 
-            //Extract Weather Description
+            //Weather Description
             if (json.has("current") && json.getAsJsonObject("current").has("weather_descriptions") &&
                     !json.getAsJsonObject("current").get("weather_descriptions").isJsonNull()) {
                 weather = json.getAsJsonObject("current").get("weather_descriptions").getAsString().toLowerCase();

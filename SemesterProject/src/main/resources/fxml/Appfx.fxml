@@ -39,6 +39,8 @@
                </Label>
             </children>
          </Pane>
+         <Label fx:id="namesaver" layoutX="137.0" layoutY="306.0" text="Label" visible="false" />
+         <Label fx:id="idsaver" layoutX="194.0" layoutY="306.0" text="Label" visible="false" />
       </children>
    </Pane>
 </AnchorPane>
