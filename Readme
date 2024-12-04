@@ -3,8 +3,8 @@ This is my Semester Project for CSIS 312-001. This is meant to be a weather app,
 
 THIS PROJECT IS ONLY OPEN TO CONTRIBUTIONS FROM OTHER STUDENTS IN THE SAME CLASS.
 
-You must have JavaFX and SceneBuilder installed on your machine to run this code. You will also have to obtain your own API Key from Weatherstack. 
-FOR SECURITY PURPOSES DO NOT PUBLISH YOUR API KEY.
+You must have JavaFX, SceneBuilder and MySQL installed on your machine to run this code. You will also have to obtain your own API Key from Weatherstack. 
+FOR SECURITY PURPOSES DO NOT PUBLISH YOUR API KEY OR YOUR LOGIN FOR MYSQL.
 
 UPDATES
 
@@ -15,4 +15,4 @@ a basic ui has been created in JavaFX, and the user can enter a city name and re
       2. Build out UI to look more professional.
       3. Allow user to specify zip code or state in order to ensure they receive the right information
 
-12/3/24 (AbSny) - Working with MySql to create users and store a presaved location
+12/3/24 (AbSny) - Working with MySql to create users and store a presaved location.
